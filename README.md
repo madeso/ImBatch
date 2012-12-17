@@ -1,9 +1,9 @@
-2ImBatch
+ImBatch
 =======
 
 I couldn't find any decent image manipulation converters that fitted my needs, so I wrote up a simple tool that does just that.
 
-3Example
+Example
 =======
 
 Compile and run the resulting ImBatch.exe
@@ -11,6 +11,7 @@ Compile and run the resulting ImBatch.exe
     ImBatch.exe <input pattern> commands.xml <output folder>
 
 The commands.xml is a xml file that tells ImBatch what to do with it. This xml will resize the input image.
+
     <batch>
     	<actions>
     		<resize width="2048" height="1546" />
@@ -33,7 +34,7 @@ This example will do more, though it may not be that useful :)
     	</actions>
     </batch>
 
-3Tips
+Tips & tricks
 =======
 
 Run a single image first(lie img1.png) to test the options, then run a wildcard input(like *.png) to run it for real.
