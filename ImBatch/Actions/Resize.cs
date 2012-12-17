@@ -19,7 +19,8 @@ namespace ImBatch.Actions
 
         public override void Apply(ImageData img)
         {
-            img.Image.Resize(this.width, this.height);
+            // img.Image.Resize(this.width, this.height);
+            img.Image.FastResize(this.width, this.height);
         }
     }
 }

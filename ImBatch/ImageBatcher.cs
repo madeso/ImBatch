@@ -15,12 +15,17 @@ namespace ImBatch
 
         public void Apply(long index, string source, string target, string filename)
         {
-            var img = new ImageData(Path.Combine(source, filename), target, filename);
-            img.Params["num"] = index.ToString();
-            foreach (var a in this.actions)
-            {
-                a.Apply(img);
+            using (var img = new ImageData(Path.Combine(source, filename), target, filename))
+            { 
+                img.Params["num"] = index.ToString();
+                foreach (var a in this.actions)
+                {
+                    a.Apply(img);
+                }
             }
+
+            GC.Collect(GC.MaxGeneration);
+            GC.WaitForPendingFinalizers();
         }
 
         public void LoadFromFile(string file)

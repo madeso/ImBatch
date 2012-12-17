@@ -8,7 +8,7 @@ namespace ImBatch
     using System.Drawing;
     using System.Drawing.Drawing2D;
 
-    public class SuperImage
+    public class SuperImage : IDisposable
     {
         private Bitmap currentBitmap;
 
@@ -164,6 +164,22 @@ namespace ImBatch
                 }
                 this.currentBitmap = (Bitmap)bmap.Clone();
             }
+        }
+
+        public void FastResize(int width, int height)
+        {
+            this.currentBitmap = ResizeImage(this.currentBitmap, width, height);
+        }
+
+        private static Bitmap ResizeImage(Image img, int width, int height)
+        {
+            Bitmap b = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage((Image)b))
+            {
+                g.DrawImage(img, 0, 0, width, height);
+            }
+
+            return b;
         }
 
         public void RotateFlip(RotateFlipType rotateFlipType)
@@ -403,6 +419,11 @@ namespace ImBatch
                 gammaArray[i] = (byte)Math.Min(255, (int)((255.0 * Math.Pow(i / 255.0, 1.0 / color)) + 0.5));
             }
             return gammaArray;
+        }
+
+        public void Dispose()
+        {
+            this.currentBitmap.Dispose();
         }
     }
 }

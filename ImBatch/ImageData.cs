@@ -5,8 +5,9 @@
 namespace ImBatch
 {
     using System.Collections.Generic;
+    using System;
 
-    internal class ImageData
+    internal class ImageData : IDisposable
     {
         public readonly string Source;
         public string Filename;
@@ -25,7 +26,18 @@ namespace ImBatch
 
         public void Load()
         {
+            CleanImage();
             this.Image = new SuperImage(this.Source);
+        }
+
+        private void CleanImage()
+        {
+            if (this.Image != null) this.Image.Dispose();
+        }
+
+        public void Dispose()
+        {
+            CleanImage();
         }
     }
 }
